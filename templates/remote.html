@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/template.css') }}">
+
+    <title>Remote Control</title>
+  </head>
+  <body>
+  <div class="main">
+      <header>
+        <nav class="nav nav-pills nav-justified">
+          <a class="nav-link active fs-5" href="{{ url_for('remote') }}">Remote Control</a>
+          <a class="nav-link fs-5" href="{{ url_for('home') }}">Virtual Assistant</a>
+        </nav>
+    </header>
+    {% block content %}
+
+    <div class="row mt-2">
+
+          <!-- Car Controller -->
+      <div class="d-flex flex-column align-items-center col-6" style="width:50%">
+        <h2 class="text-danger mb-5">Car Movement</h2>
+          <div class="mb-1" role="group" aria-label="Basic mixed styles example">
+              <button type="button" onclick="forward()" class="btn btn-light fs-6">Forward</button>
+          </div>
+
+          <div class="mb-1" role="group" aria-label="Basic mixed styles example" style="margin-left:3px;">
+              <button type="button" onclick="left()" class="btn btn-light fs-6" style="width:82px">Left</button>
+              <button type="button" onclick="stop()" class="btn btn-light fs-6">STOP</button>
+              <button type="button" onclick="right()" class="btn btn-light fs-6">Right</button>
+          </div>
+
+          <div class="" role="group" aria-label="Basic mixed styles example">
+              <button type="button" onclick="backward()" class="btn btn-light fs-6">Backward</button>
+          </div>
+
+        </div>
+          <!-- Eye Controller -->
+          <div class="d-flex flex-column align-items-center col-6" style="width:50%">
+             <h2 class="text-danger mb-5">Eye Movement</h2>
+          <div class="mb-1" role="group" aria-label="Basic mixed styles example">
+              <button type="button" onclick="look_up()" class="btn btn-light fs-6" style="width:82px">UP</button>
+          </div>
+
+          <div class="mb-1" role="group" aria-label="Basic mixed styles example" style="margin-left:3px;">
+              <button type="button" onclick="look_left()" class="btn btn-light fs-6" style="width:82px">Left</button>
+              <button type="button" onclick="nature()" class="btn btn-light fs-6">NATURE</button>
+              <button type="button" onclick="look_right()" class="btn btn-light fs-6">Right</button>
+          </div>
+
+          <div class="" role="group" aria-label="Basic mixed styles example">
+              <button type="button" onclick="look_down()" class="btn btn-light fs-6">DOWN</button>
+          </div>
+        </div>
+    </div>
+        <!-- Cute and Uncute -->
+      <div class="d-flex flex-row justify-content-center mt-5 " role="group" aria-label="Basic mixed styles example" style="margin-left:3px;">
+          <button type="button" onclick="cute()" class="btn btn-light fs-6 mx-5" style="width:200px">Cute</button>
+          <button type="button" onclick="uncute()" class="btn btn-light fs-6" style="width:200px">Uncute</button>
+      </div>
+        <!--      Browse Control     -->
+    <div class="d-flex flex-row justify-content-center mt-2 " role="group" aria-label="Basic mixed styles example" style="margin-left:3px;">
+        <button type="button" onclick="browse_up()" class="btn btn-light fs-6 mx-5" style="width:200px;">Browse up</button>
+        <button type="button" onclick="browse_down()" class="btn btn-light fs-6" style="width:200px;">Browse Down</button>
+    </div>
+
+        <!--  Arm Control  -->
+    <div class="d-flex flex-row justify-content-center mt-5 " role="group" aria-label="Basic mixed styles example" style="margin-left:3px;">
+        <p class="text-white fs-2 me-3"> Arm Modes: </p>
+        <button type="button" onclick="home()" class="btn btn-light fs-6 me-5" style="width:200px; height:50px;">Home</button>
+        <button type="button" onclick="pick()" class="btn btn-light fs-6 me-5" style="width:200px; height:50px;">Pick</button>
+        <button type="button" onclick="sing()" class="btn btn-light fs-6" style="width:200px; height:50px;">Sing</button>
+        <button type="button" onclick="wave()" class="btn btn-light fs-6" style="width:200px; height:50px;">wave</button>
+        <button type="button" onclick="move()" class="btn btn-light fs-6" style="width:200px; height:50px;">wave</button>
+
+    </div>
+        <!--    Chat Bot-->
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="text">
+        <button class="btn btn-outline-secondary" type="button" onclick="say()">Say</button>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" ></script>
+    {% endblock %}
+    <script src="{{ url_for('static',     filename='js/popper.js') }}"></script>
+    <script src="{{ url_for('static',     filename='js/bootstrap.js') }}"></script>
+     <script>const socket = io.connect("http://127.0.0.1:5000",{reconnect: true});
+function forward() {
+    console.log('forward')
+  socket.emit('forward', {data: 'going forward'});
+};
+function left() {
+    console.log('left')
+  socket.emit('left', {data: 'going left'});
+};
+function right(){
+    socket.emit('right', {data: 'going right'});
+};
+function stop(){
+    socket.emit('stop', {data: 'stop the car'});
+};
+function backward(){
+    socket.emit('backward', {data: 'going backward'});
+};
+
+function look_up(){
+    socket.emit('up', {data: 'look up'});
+};
+
+function look_left(){
+        socket.emit('look_left', {data: 'look left'});
+};
+
+function look_right(){
+        socket.emit('look_right', {data: 'look right'});
+}
+
+function nature(){
+        socket.emit('nature', {data: 'look nature'});
+};
+
+function look_down(){
+        socket.emit('down', {data: 'look nature'});
+};
+
+function cute(){
+        socket.emit('cute', {data: 'look cute'});
+}
+
+function uncute(){
+        socket.emit('uncute', {data: 'look uncute'});
+}
+;
+function browse_up(){
+        socket.emit('browse_up', {data: 'Browse up'});
+};
+
+function browse_down(){
+        socket.emit('browse_down', {data: 'Browse down'});
+}
+
+function home(){
+        socket.emit('home', {data: 'Home'});
+};
+
+function pick(){
+        socket.emit('pick', {data: 'pick'});
+};
+
+function sing(){
+        socket.emit('sing', {data: 'sing'});
+};
+function wave(){
+        socket.emit('wave', {data: 'sing'});
+};
+function move(){
+        socket.emit('move', {data: 'sing'});
+};
+function say(){
+  let label= document.querySelector("#text")
+  let val = label.value
+  console.log(val);
+  socket.emit('say',{data: val});
+}
+</script> 
+  </body>
+</html>

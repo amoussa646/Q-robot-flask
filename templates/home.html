@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/bootstrap.css') }}">
+    <title>First Web App</title>
+  </head>
+  <body>
+      <header>
+        <nav class="nav nav-pills nav-justified">
+          <a class="nav-link fs-5" href="{{ url_for('remote') }}">Remote Control</a>
+          <a class="nav-link active fs-5" href="{{ url_for('home') }}">Virtual Assistant</a>
+        </nav>
+    </header>    {% block content %}
+
+    <h1> My First Try Using Flask </h1>
+    <p> Flask is Fun </p>
+
+    {% endblock %}
+    <script src="{{ url_for('static',     filename='js/popper.js') }}"></script>
+    <script src="{{ url_for('static',     filename='js/bootstrap.js') }}"></script>
+  </body>
+</html>
